@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../features/home/pages/home_page.dart';
 import '../../features/inventory/pages/inventory_add_page.dart';
+import '../../features/inventory/pages/inventory_edit_page.dart';
 import '../../features/inventory/pages/inventory_page.dart';
 import '../../features/settings/pages/privacy_page.dart';
 import '../../features/settings/pages/settings_page.dart';
@@ -9,6 +10,7 @@ import '../../features/settings/pages/support_page.dart';
 import '../../features/settings/pages/terms_page.dart';
 import '../../features/splash/onboard_page.dart';
 import '../../features/splash/splash_page.dart';
+import '../models/inventory.dart';
 
 final routerConfig = GoRouter(
   initialLocation: '/',
@@ -32,6 +34,12 @@ final routerConfig = GoRouter(
         GoRoute(
           path: 'add',
           builder: (context, state) => const InventoryAddPage(),
+        ),
+        GoRoute(
+          path: 'edit',
+          builder: (context, state) => InventoryEditPage(
+            inventory: state.extra as Inventory,
+          ),
         ),
       ],
     ),

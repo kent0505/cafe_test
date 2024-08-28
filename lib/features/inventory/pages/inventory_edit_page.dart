@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:cafe_test/core/widgets/dialogs/delete_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -16,20 +17,22 @@ import '../../../core/widgets/textfields/txt_field.dart';
 import '../../../core/widgets/texts/text_b.dart';
 import '../bloc/inventory_bloc.dart';
 
-class InventoryAddPage extends StatefulWidget {
-  const InventoryAddPage({super.key});
+class InventoryEditPage extends StatefulWidget {
+  const InventoryEditPage({super.key, required this.inventory});
+
+  final Inventory inventory;
 
   @override
-  State<InventoryAddPage> createState() => _InventoryAddPageState();
+  State<InventoryEditPage> createState() => _InventoryEditPageState();
 }
 
-class _InventoryAddPageState extends State<InventoryAddPage> {
+class _InventoryEditPageState extends State<InventoryEditPage> {
   final controller1 = TextEditingController(); // name
   final controller2 = TextEditingController(); // price
   final controller3 = TextEditingController(); // sale price
   final controller4 = TextEditingController(); // image path
 
-  bool active = false;
+  bool active = true;
 
   void checkActive() {
     setState(() {
@@ -51,15 +54,14 @@ class _InventoryAddPageState extends State<InventoryAddPage> {
   void onImagePicked(String image) {
     log(image);
     controller4.text = image;
-    setState(() {});
     checkActive();
   }
 
-  void onSave() {
+  void onEdit() {
     context.read<InventoryBloc>().add(
-          AddInventoryEvent(
+          EditInventoryEvent(
             inventory: Inventory(
-              id: getCurrentTimestamp(),
+              id: widget.inventory.id,
               name: controller1.text,
               price: int.tryParse(controller2.text) ?? 0,
               salePrice: int.tryParse(controller3.text) ?? 0,
@@ -68,6 +70,32 @@ class _InventoryAddPageState extends State<InventoryAddPage> {
           ),
         );
     context.pop();
+  }
+
+  void onDelete() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return DeleteDialog(
+          title: 'Delete Product?',
+          onYes: () {
+            context
+                .read<InventoryBloc>()
+                .add(DeleteInventoryEvent(id: widget.inventory.id));
+            context.pop();
+          },
+        );
+      },
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    controller1.text = widget.inventory.name;
+    controller2.text = widget.inventory.price.toString();
+    controller3.text = widget.inventory.salePrice.toString();
+    controller4.text = widget.inventory.image;
   }
 
   @override
@@ -84,7 +112,7 @@ class _InventoryAddPageState extends State<InventoryAddPage> {
     return CustomScaffold(
       body: Column(
         children: [
-          const CustomAppbar(title: 'Add a New Product'),
+          const CustomAppbar(title: 'Edit Product'),
           const SizedBox(height: 12),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -131,9 +159,14 @@ class _InventoryAddPageState extends State<InventoryAddPage> {
                 ),
                 const SizedBox(height: 24),
                 PrimaryButton(
-                  title: 'Save',
+                  title: 'Edit',
                   active: active,
-                  onPressed: onSave,
+                  onPressed: onEdit,
+                ),
+                const SizedBox(height: 10),
+                PrimaryButton(
+                  title: 'Delete',
+                  onPressed: onDelete,
                 ),
               ],
             ),

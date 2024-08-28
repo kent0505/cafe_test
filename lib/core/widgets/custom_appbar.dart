@@ -80,6 +80,7 @@ class CustomAppbar extends StatelessWidget {
               ),
             ],
             if (!settings) ...[
+              if (home) const Spacer(),
               CupertinoButton(
                 onPressed: () {
                   context.push('/settings');

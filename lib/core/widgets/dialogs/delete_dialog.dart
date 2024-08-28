@@ -18,7 +18,11 @@ class DeleteDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      backgroundColor: AppColors.pink1,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(24)),
+      ),
+      insetPadding: const EdgeInsets.symmetric(horizontal: 56),
+      backgroundColor: AppColors.white,
       child: SizedBox(
         height: 150,
         width: MediaQuery.of(context).size.width > 300 ? 300 : null,
