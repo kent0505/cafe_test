@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../core/config/app_colors.dart';
 import '../../../core/widgets/texts/text_b.dart';
@@ -17,7 +18,9 @@ class CoffeeShopCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(24),
         ),
         child: CupertinoButton(
-          onPressed: () {},
+          onPressed: () {
+            context.push('/cafe-add');
+          },
           padding: EdgeInsets.zero,
           child: Stack(
             children: [

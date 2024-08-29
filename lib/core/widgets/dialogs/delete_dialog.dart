@@ -2,8 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../config/app_colors.dart';
-import '../texts/text_m.dart';
-import '../texts/text_r.dart';
+import '../texts/text_b.dart';
 
 class DeleteDialog extends StatelessWidget {
   const DeleteDialog({
@@ -29,7 +28,7 @@ class DeleteDialog extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(height: 20),
-            TextM(
+            TextB(
               title,
               fontSize: 18,
             ),
@@ -79,7 +78,7 @@ class _Button extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          TextR(
+          TextB(
             title,
             fontSize: 14,
           ),

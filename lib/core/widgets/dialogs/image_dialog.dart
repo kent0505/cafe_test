@@ -113,6 +113,7 @@ class _ImageDialogState extends State<ImageDialog> {
                 child: Image.network(
                   link,
                   height: 188,
+                  width: double.infinity,
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) {
                     return Container();

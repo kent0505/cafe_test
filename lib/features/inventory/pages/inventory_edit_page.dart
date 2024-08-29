@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:cafe_test/core/widgets/dialogs/delete_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -11,7 +10,7 @@ import '../../../core/widgets/buttons/add_image_button.dart';
 import '../../../core/widgets/buttons/primary_button.dart';
 import '../../../core/widgets/custom_appbar.dart';
 import '../../../core/widgets/custom_scaffold.dart';
-import '../../../core/widgets/dialogs/image_dialog.dart';
+import '../../../core/widgets/dialogs/delete_dialog.dart';
 import '../../../core/widgets/textfields/number_field.dart';
 import '../../../core/widgets/textfields/txt_field.dart';
 import '../../../core/widgets/texts/text_b.dart';
@@ -122,19 +121,8 @@ class _InventoryEditPageState extends State<InventoryEditPage> {
                 const TextB('Product Photo', fontSize: 14),
                 const SizedBox(height: 10),
                 AddImageButton(
-                  image: controller4.text,
-                  onPressed: () async {
-                    await showDialog(
-                      context: context,
-                      builder: (context) {
-                        return ImageDialog(
-                          controller: controller4,
-                          onImageLink: onImageLink,
-                          onImagePicked: onImagePicked,
-                        );
-                      },
-                    );
-                  },
+                  controller: controller4,
+                  onPressed: checkActive,
                 ),
                 const SizedBox(height: 24),
                 const TextB('Name of the Product', fontSize: 14),

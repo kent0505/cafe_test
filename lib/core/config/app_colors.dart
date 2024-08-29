@@ -9,9 +9,9 @@ class AppColors {
   static const Color pink1 = Color(0xffD1B7FF);
   static const Color pink2 = Color(0xffFECBFF);
   static const Color purple1 = Color(0xff6130B6);
+  static const Color purple2 = Color(0xff7B44DC);
   static const Color green = Color(0xffB8F9AE);
   static const Color textField = Color(0xffE3D2FF);
-
   static Color white50 = white.withOpacity(0.5);
 }
 

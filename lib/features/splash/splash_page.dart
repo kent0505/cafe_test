@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import '../../core/utils.dart';
 import '../../core/config/app_colors.dart';
 import '../../core/widgets/texts/text_r.dart';
+import '../cafe/bloc/cafe_bloc.dart';
 import '../inventory/bloc/inventory_bloc.dart';
 
 class SplashPage extends StatefulWidget {
@@ -20,6 +21,7 @@ class _SplashPageState extends State<SplashPage> {
   double loading = 0;
 
   void load() async {
+    context.read<CafeBloc>().add(GetCafesEvent());
     context.read<InventoryBloc>().add(GetInventoriesEvent());
 
     await getData().then((value) {

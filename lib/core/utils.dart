@@ -6,6 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'models/cafe.dart';
 import 'models/inventory.dart';
 
 bool onboard = true;
@@ -71,12 +72,26 @@ Future<String> filterValidImage(String url) async {
 }
 
 String inventorybox = 'inventorybox';
+List<Cafe> cafeList = [];
 List<Inventory> inventoryList = [];
 
 Future<void> initHive() async {
   await Hive.initFlutter();
   // await Hive.deleteBoxFromDisk(inventorybox);
+  Hive.registerAdapter(CafeAdapter());
   Hive.registerAdapter(InventoryAdapter());
+}
+
+Future<void> getCafes() async {
+  final box = await Hive.openBox(inventorybox);
+  List data = box.get('cafeList') ?? [];
+  cafeList = data.cast<Cafe>();
+}
+
+Future<void> updateCafes() async {
+  final box = await Hive.openBox(inventorybox);
+  box.put('cafeList', cafeList);
+  cafeList = await box.get('cafeList');
 }
 
 Future<void> getInventories() async {
