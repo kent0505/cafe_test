@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../core/widgets/texts/text_b.dart';
 
-class NewsCard extends StatelessWidget {
-  const NewsCard({super.key});
+class HomeNewsCard extends StatelessWidget {
+  const HomeNewsCard({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,9 @@ class NewsCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(24),
         ),
         child: CupertinoButton(
-          onPressed: () {},
+          onPressed: () {
+            context.push('/news');
+          },
           padding: EdgeInsets.zero,
           child: Stack(
             children: [

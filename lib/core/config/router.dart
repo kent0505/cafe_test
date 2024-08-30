@@ -6,6 +6,9 @@ import '../../features/home/pages/home_page.dart';
 import '../../features/inventory/pages/inventory_add_page.dart';
 import '../../features/inventory/pages/inventory_edit_page.dart';
 import '../../features/inventory/pages/inventory_page.dart';
+import '../../features/news/pages/news_add_page.dart';
+import '../../features/news/pages/news_edit_page.dart';
+import '../../features/news/pages/news_page.dart';
 import '../../features/revenue/pages/revenue_add_page.dart';
 import '../../features/revenue/pages/revenue_edit_page.dart';
 import '../../features/revenue/pages/revenue_page.dart';
@@ -17,6 +20,7 @@ import '../../features/splash/onboard_page.dart';
 import '../../features/splash/splash_page.dart';
 import '../models/cafe.dart';
 import '../models/inventory.dart';
+import '../models/news.dart';
 import '../models/revenue.dart';
 
 final routerConfig = GoRouter(
@@ -72,6 +76,22 @@ final routerConfig = GoRouter(
           path: 'edit',
           builder: (context, state) => RevenueEditPage(
             revenue: state.extra as Revenue,
+          ),
+        ),
+      ],
+    ),
+    GoRoute(
+      path: '/news',
+      builder: (context, state) => const NewsPage(),
+      routes: [
+        GoRoute(
+          path: 'add',
+          builder: (context, state) => const NewsAddPage(),
+        ),
+        GoRoute(
+          path: 'edit',
+          builder: (context, state) => NewsEditPage(
+            news: state.extra as News,
           ),
         ),
       ],

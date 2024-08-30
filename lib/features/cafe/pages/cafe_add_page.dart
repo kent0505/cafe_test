@@ -95,6 +95,7 @@ class _CafeAddPageState extends State<CafeAddPage> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
+      resize: true,
       body: Column(
         children: [
           const CustomAppbar(title: 'Add Coffee Shop'),
@@ -111,21 +112,27 @@ class _CafeAddPageState extends State<CafeAddPage> {
                       controller: controller5,
                       onPressed: checkActive,
                     ),
-                    const SizedBox(width: 10),
-                    AddImageButton(
-                      controller: controller6,
-                      onPressed: checkActive,
-                    ),
-                    const SizedBox(width: 10),
-                    AddImageButton(
-                      controller: controller7,
-                      onPressed: checkActive,
-                    ),
-                    const SizedBox(width: 10),
-                    AddImageButton(
-                      controller: controller8,
-                      onPressed: checkActive,
-                    ),
+                    if (controller5.text.isNotEmpty) ...[
+                      const SizedBox(width: 10),
+                      AddImageButton(
+                        controller: controller6,
+                        onPressed: checkActive,
+                      ),
+                      if (controller6.text.isNotEmpty) ...[
+                        const SizedBox(width: 10),
+                        AddImageButton(
+                          controller: controller7,
+                          onPressed: checkActive,
+                        ),
+                        if (controller7.text.isNotEmpty) ...[
+                          const SizedBox(width: 10),
+                          AddImageButton(
+                            controller: controller8,
+                            onPressed: checkActive,
+                          ),
+                        ]
+                      ]
+                    ],
                   ],
                 ),
                 const SizedBox(height: 24),

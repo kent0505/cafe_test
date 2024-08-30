@@ -34,7 +34,7 @@ class TxtField extends StatelessWidget {
             : multiline
                 ? TextInputType.multiline
                 : null,
-        maxLines: null,
+        maxLines: multiline ? null : 1,
         inputFormatters: [
           LengthLimitingTextInputFormatter(multiline ? 200 : 20),
           // FilteringTextInputFormatter.allow(RegExp("[a-zA-Zа-яА-Я]")),

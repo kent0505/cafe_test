@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'models/cafe.dart';
 import 'models/inventory.dart';
+import 'models/news.dart';
 import 'models/revenue.dart';
 
 bool onboard = true;
@@ -35,25 +36,20 @@ int getCurrentTimestamp() {
   return DateTime.now().millisecondsSinceEpoch ~/ 1000;
 }
 
+String formatTimestamp(int timestamp) {
+  DateTime date = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+  String formattedDate = DateFormat('dd.MM.yyyy').format(date);
+  return formattedDate;
+}
+
 String formatDateTime(DateTime date) {
-  String formattedDate = DateFormat('dd-MM-yyyy').format(date);
+  String formattedDate = DateFormat('dd.MM.yyyy').format(date);
   return formattedDate;
 }
 
 DateTime convertToDateTime(String date) {
-  return DateFormat('dd-MM-yyyy').parse(date);
+  return DateFormat('dd.MM.yyyy').parse(date);
 }
-
-// String formatDateString(String date) {
-//   DateTime dateTime = DateFormat('dd-MM-yyyy').parse(date);
-//   String formattedDate = DateFormat('d MMMM yyyy').format(dateTime);
-//   return formattedDate;
-// }
-
-// String formatTime(int timestamp) {
-//   DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
-//   return DateFormat('HH:mm').format(dateTime);
-// }
 
 double getStatusBar(BuildContext context) {
   return MediaQuery.of(context).viewPadding.top;
@@ -97,6 +93,7 @@ String inventorybox = 'inventorybox';
 List<Cafe> cafeList = [];
 List<Inventory> inventoryList = [];
 List<Revenue> revenuesList = [];
+List<News> newsList = [];
 
 Future<void> initHive() async {
   await Hive.initFlutter();
@@ -104,6 +101,7 @@ Future<void> initHive() async {
   Hive.registerAdapter(CafeAdapter());
   Hive.registerAdapter(InventoryAdapter());
   Hive.registerAdapter(RevenueAdapter());
+  Hive.registerAdapter(NewsAdapter());
 }
 
 Future<void> getCafes() async {
@@ -140,4 +138,16 @@ Future<void> updateRevenues() async {
   final box = await Hive.openBox(inventorybox);
   box.put('revenuesList', revenuesList);
   revenuesList = await box.get('revenuesList');
+}
+
+Future<void> getNews() async {
+  final box = await Hive.openBox(inventorybox);
+  List data = box.get('newsList') ?? internetNews;
+  newsList = data.cast<News>();
+}
+
+Future<void> updateNews() async {
+  final box = await Hive.openBox(inventorybox);
+  box.put('newsList', newsList);
+  newsList = await box.get('newsList');
 }

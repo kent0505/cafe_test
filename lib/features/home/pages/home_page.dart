@@ -8,7 +8,7 @@ import '../../cafe/bloc/cafe_bloc.dart';
 import '../widgets/cafe_card.dart';
 import '../widgets/coffee_shop_card.dart';
 import '../widgets/home_inventory.dart';
-import '../widgets/news_card.dart';
+import '../widgets/home_news_card.dart';
 import '../widgets/home_revenue_card.dart';
 
 class HomePage extends StatelessWidget {
@@ -77,7 +77,7 @@ class HomePage extends StatelessWidget {
                 const Row(
                   children: [
                     SizedBox(width: 24),
-                    NewsCard(),
+                    HomeNewsCard(),
                     SizedBox(width: 24),
                   ],
                 ),

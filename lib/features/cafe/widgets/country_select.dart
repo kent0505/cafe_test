@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../core/config/app_colors.dart';
+import '../../../core/widgets/texts/text_m.dart';
 import '../../../core/widgets/texts/text_r.dart';
 
 class CountrySelect extends StatefulWidget {
@@ -254,7 +255,7 @@ class _CountrySelectState extends State<CountrySelect> {
             child: Row(
               children: [
                 const SizedBox(width: 14),
-                TextR(
+                TextM(
                   country,
                   fontSize: 15,
                   color: AppColors.grey1,

@@ -7,6 +7,7 @@ import 'core/config/router.dart';
 import 'core/config/themes.dart';
 import 'features/cafe/bloc/cafe_bloc.dart';
 import 'features/inventory/bloc/inventory_bloc.dart';
+import 'features/news/bloc/news_bloc.dart';
 import 'features/revenue/bloc/revenue_bloc.dart';
 
 void main() async {
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => CafeBloc()),
         BlocProvider(create: (context) => InventoryBloc()),
         BlocProvider(create: (context) => RevenueBloc()),
+        BlocProvider(create: (context) => NewsBloc()),
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
