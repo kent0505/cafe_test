@@ -4,23 +4,32 @@ import 'package:go_router/go_router.dart';
 import 'package:pie_chart/pie_chart.dart';
 
 import '../../../core/config/app_colors.dart';
+import '../../../core/models/chart_data.dart';
 import '../../../core/widgets/texts/text_e.dart';
 
 class StatisticsCard extends StatefulWidget {
-  const StatisticsCard({super.key});
+  const StatisticsCard({super.key, required this.chartData});
+
+  final ChartData chartData;
 
   @override
   State<StatisticsCard> createState() => _StatisticsCardState();
 }
 
 class _StatisticsCardState extends State<StatisticsCard> {
-  Map<String, double> dataMap = {
-    "Sugar": 5,
-    "Coffee Cups": 3,
-    "Coffee": 2,
-    "Dessert": 2,
-    "Syrup for Coffee": 2,
-  };
+  Map<String, double> dataMap = {};
+
+  @override
+  void initState() {
+    super.initState();
+    dataMap = {
+      "Sugar": widget.chartData.sugar,
+      "Coffee Cups": widget.chartData.cups,
+      "Coffee": widget.chartData.coffee,
+      "Dessert": widget.chartData.dessert,
+      "Syrup for Coffee": widget.chartData.syrup
+    };
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +44,41 @@ class _StatisticsCardState extends State<StatisticsCard> {
       ),
       child: Column(
         children: [
-          const SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _Period(
+                title: 'Day',
+                active: true,
+                onPressed: () {},
+              ),
+              _Period(
+                title: 'Week',
+                active: false,
+                onPressed: () {},
+              ),
+              _Period(
+                title: 'Month',
+                active: false,
+                onPressed: () {},
+              ),
+              _Period(
+                title: 'Year',
+                active: false,
+                onPressed: () {},
+              ),
+            ],
+          ),
+          const SizedBox(height: 24),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SvgPicture.asset('assets/arrow1.svg'),
+              const TextE2('August 2024', fontSize: 14),
+              SvgPicture.asset('assets/arrow2.svg'),
+            ],
+          ),
+          const SizedBox(height: 24),
           PieChart(
             dataMap: dataMap,
             animationDuration: const Duration(milliseconds: 0),
@@ -85,6 +128,30 @@ class _StatisticsCardState extends State<StatisticsCard> {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _Period extends StatelessWidget {
+  const _Period({
+    required this.title,
+    required this.active,
+    required this.onPressed,
+  });
+
+  final String title;
+  final bool active;
+  final void Function() onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return CupertinoButton(
+      onPressed: active ? null : onPressed,
+      child: TextE2(
+        title,
+        fontSize: 14,
+        color: active ? AppColors.black : AppColors.grey1,
       ),
     );
   }

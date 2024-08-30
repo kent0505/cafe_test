@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../core/models/chart_data.dart';
 import '../../../core/models/revenue.dart';
 import '../../../core/widgets/custom_appbar.dart';
 import '../../../core/widgets/custom_scaffold.dart';
@@ -20,20 +21,18 @@ class RevenuePage extends StatefulWidget {
 class _RevenuePageState extends State<RevenuePage> {
   bool revenue = true;
 
-  List<Revenue> getSortedRevenues(List<Revenue> data) {
-    List<Revenue> sorted = [];
-    for (Revenue revenue in data) {
-      if (revenue.revenue) sorted.add(revenue);
+  List<Revenue> getSorted(List<Revenue> data) {
+    List<Revenue> sorted1 = [];
+    List<Revenue> sorted2 = [];
+    for (Revenue i in data) {
+      if (i.revenue) {
+        sorted1.add(i);
+      } else {
+        sorted2.add(i);
+      }
     }
-    return sorted;
-  }
-
-  List<Revenue> getSortedExpenses(List<Revenue> data) {
-    List<Revenue> sorted = [];
-    for (Revenue revenue in data) {
-      if (!revenue.revenue) sorted.add(revenue);
-    }
-    return sorted;
+    if (revenue) return sorted1;
+    return sorted2;
   }
 
   void changeTab(bool value) {
@@ -75,25 +74,29 @@ class _RevenuePageState extends State<RevenuePage> {
                       ],
                     ),
                     const SizedBox(height: 14),
-                    const StatisticsCard(),
+                    StatisticsCard(
+                      chartData: ChartData(
+                        sugar: 2,
+                        cups: 2,
+                        coffee: 2,
+                        dessert: 2,
+                        syrup: 2,
+                      ),
+                    ),
                     const SizedBox(height: 14),
                     if (state is RevenueLoadedState) ...[
-                      if (state.revenues.isEmpty)
+                      if (getSorted(state.revenues).isEmpty)
                         const NoData()
                       else ...[
                         ...List.generate(
-                          revenue
-                              ? getSortedRevenues(state.revenues).length
-                              : getSortedExpenses(state.revenues).length,
+                          getSorted(state.revenues).length,
                           (index) {
                             return RevenueCard(
-                              revenue: revenue
-                                  ? getSortedRevenues(state.revenues)[index]
-                                  : getSortedExpenses(state.revenues)[index],
+                              revenue: getSorted(state.revenues)[index],
                             );
                           },
                         ),
-                      ]
+                      ],
                     ],
                   ],
                 ),
