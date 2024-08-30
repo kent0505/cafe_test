@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/models/revenue.dart';
 import '../../../core/widgets/custom_appbar.dart';
 import '../../../core/widgets/custom_scaffold.dart';
+import '../../../core/widgets/no_data.dart';
 import '../bloc/revenue_bloc.dart';
 import '../widgets/revenue_card.dart';
 import '../widgets/statistics_card.dart';
@@ -77,18 +78,22 @@ class _RevenuePageState extends State<RevenuePage> {
                     const StatisticsCard(),
                     const SizedBox(height: 14),
                     if (state is RevenueLoadedState) ...[
-                      ...List.generate(
-                        revenue
-                            ? getSortedRevenues(state.revenues).length
-                            : getSortedExpenses(state.revenues).length,
-                        (index) {
-                          return RevenueCard(
-                            revenue: revenue
-                                ? getSortedRevenues(state.revenues)[index]
-                                : getSortedExpenses(state.revenues)[index],
-                          );
-                        },
-                      ),
+                      if (state.revenues.isEmpty)
+                        const NoData()
+                      else ...[
+                        ...List.generate(
+                          revenue
+                              ? getSortedRevenues(state.revenues).length
+                              : getSortedExpenses(state.revenues).length,
+                          (index) {
+                            return RevenueCard(
+                              revenue: revenue
+                                  ? getSortedRevenues(state.revenues)[index]
+                                  : getSortedExpenses(state.revenues)[index],
+                            );
+                          },
+                        ),
+                      ]
                     ],
                   ],
                 ),

@@ -25,12 +25,10 @@ class TabWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: active ? AppColors.black : AppColors.white,
         borderRadius: BorderRadius.circular(30),
-        border: active
-            ? Border.all(
-                width: 1,
-                color: AppColors.black,
-              )
-            : null,
+        border: Border.all(
+          width: 1,
+          color: AppColors.black,
+        ),
       ),
       child: CupertinoButton(
         onPressed: () {

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../core/config/app_colors.dart';
+import '../../../core/widgets/texts/text_m.dart';
 import '../../../core/widgets/texts/text_r.dart';
 
 class CategorySelect extends StatefulWidget {
@@ -64,7 +65,7 @@ class _CategorySelectState extends State<CategorySelect> {
             child: Row(
               children: [
                 const SizedBox(width: 14),
-                TextR(
+                TextM(
                   category,
                   fontSize: 15,
                   color: AppColors.grey1,

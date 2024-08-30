@@ -117,6 +117,7 @@ class _NewsAddPageState extends State<NewsAddPage> {
                 const SizedBox(height: 10),
                 TxtField(
                   controller: controller1,
+                  hintText: 'Title',
                   multiline: true,
                   onChanged: checkActive,
                 ),
@@ -125,6 +126,7 @@ class _NewsAddPageState extends State<NewsAddPage> {
                 const SizedBox(height: 10),
                 TxtField(
                   controller: controller2,
+                  hintText: 'Body',
                   multiline: true,
                   onChanged: checkActive,
                 ),

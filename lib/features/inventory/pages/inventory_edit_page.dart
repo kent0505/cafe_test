@@ -129,6 +129,7 @@ class _InventoryEditPageState extends State<InventoryEditPage> {
                 const SizedBox(height: 10),
                 TxtField(
                   controller: controller1,
+                  hintText: 'Product',
                   onChanged: checkActive,
                 ),
                 const SizedBox(height: 24),
@@ -136,6 +137,7 @@ class _InventoryEditPageState extends State<InventoryEditPage> {
                 const SizedBox(height: 10),
                 NumberField(
                   controller: controller2,
+                  hintText: 'Price',
                   onChanged: checkActive,
                 ),
                 const SizedBox(height: 24),
@@ -143,6 +145,7 @@ class _InventoryEditPageState extends State<InventoryEditPage> {
                 const SizedBox(height: 10),
                 NumberField(
                   controller: controller3,
+                  hintText: 'Sale Price',
                   onChanged: checkActive,
                 ),
                 const SizedBox(height: 24),

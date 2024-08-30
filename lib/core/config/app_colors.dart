@@ -34,3 +34,11 @@ Color getCategoryColor(String category) {
   if (category == 'Syrup for Coffee') return const Color(0xffFB41FF);
   return AppColors.pink2;
 }
+
+List<Color> pieChartColors = [
+  AppColors.pink2, // sugar
+  AppColors.green, // coffee cups
+  const Color(0xffA2B3FF), // coffee
+  AppColors.purple2, // dessert
+  const Color(0xffFB41FF), // syrup for coffee
+];

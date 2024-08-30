@@ -61,6 +61,7 @@ class _SupportPageState extends State<SupportPage> {
                 const SizedBox(height: 10),
                 TxtField(
                   controller: controller1,
+                  hintText: 'Name',
                   onChanged: checkActive,
                 ),
                 const SizedBox(height: 24),
@@ -68,6 +69,7 @@ class _SupportPageState extends State<SupportPage> {
                 const SizedBox(height: 10),
                 TxtField(
                   controller: controller2,
+                  hintText: 'Email',
                   email: true,
                   onChanged: checkActive,
                 ),
@@ -76,6 +78,7 @@ class _SupportPageState extends State<SupportPage> {
                 const SizedBox(height: 10),
                 TxtField(
                   controller: controller3,
+                  hintText: 'Message',
                   multiline: true,
                   onChanged: checkActive,
                 ),
