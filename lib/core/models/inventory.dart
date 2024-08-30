@@ -12,6 +12,8 @@ class Inventory {
   int salePrice;
   @HiveField(4)
   String image;
+  @HiveField(5)
+  String category;
 
   Inventory({
     required this.id,
@@ -19,6 +21,7 @@ class Inventory {
     required this.price,
     required this.salePrice,
     required this.image,
+    required this.category,
   });
 }
 
@@ -34,6 +37,7 @@ class InventoryAdapter extends TypeAdapter<Inventory> {
       price: reader.read(),
       salePrice: reader.read(),
       image: reader.read(),
+      category: reader.read(),
     );
   }
 
@@ -44,5 +48,6 @@ class InventoryAdapter extends TypeAdapter<Inventory> {
     writer.write(obj.price);
     writer.write(obj.salePrice);
     writer.write(obj.image);
+    writer.write(obj.category);
   }
 }

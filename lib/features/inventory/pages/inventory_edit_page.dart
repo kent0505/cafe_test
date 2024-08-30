@@ -65,6 +65,7 @@ class _InventoryEditPageState extends State<InventoryEditPage> {
               price: int.tryParse(controller2.text) ?? 0,
               salePrice: int.tryParse(controller3.text) ?? 0,
               image: controller4.text,
+              category: widget.inventory.category,
             ),
           ),
         );

@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import '../../features/cafe/pages/cafe_add_page.dart';
 import '../../features/cafe/pages/cafe_edit_page.dart';
 import '../../features/home/pages/home_page.dart';
+import '../../features/inventory/pages/category_page.dart';
 import '../../features/inventory/pages/inventory_add_page.dart';
 import '../../features/inventory/pages/inventory_edit_page.dart';
 import '../../features/inventory/pages/inventory_page.dart';
@@ -49,12 +50,20 @@ final routerConfig = GoRouter(
       ),
     ),
     GoRoute(
+      path: '/category',
+      builder: (context, state) => const CategoryPage(),
+    ),
+    GoRoute(
       path: '/inventory',
-      builder: (context, state) => const InventoryPage(),
+      builder: (context, state) => InventoryPage(
+        category: state.extra as String,
+      ),
       routes: [
         GoRoute(
           path: 'add',
-          builder: (context, state) => const InventoryAddPage(),
+          builder: (context, state) => InventoryAddPage(
+            category: state.extra as String,
+          ),
         ),
         GoRoute(
           path: 'edit',

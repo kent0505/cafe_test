@@ -19,7 +19,7 @@ class HomeInventory extends StatelessWidget {
         ),
         child: CupertinoButton(
           onPressed: () {
-            context.push('/inventory');
+            context.push('/category');
           },
           padding: EdgeInsets.zero,
           child: Stack(

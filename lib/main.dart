@@ -24,6 +24,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    precacheImage(const AssetImage('assets/category1.png'), context);
+    precacheImage(const AssetImage('assets/category2.png'), context);
+    precacheImage(const AssetImage('assets/category3.png'), context);
+    precacheImage(const AssetImage('assets/category4.png'), context);
+    precacheImage(const AssetImage('assets/category5.png'), context);
+
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => CafeBloc()),

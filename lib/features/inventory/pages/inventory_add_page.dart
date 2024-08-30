@@ -14,7 +14,9 @@ import '../../../core/widgets/texts/text_b.dart';
 import '../bloc/inventory_bloc.dart';
 
 class InventoryAddPage extends StatefulWidget {
-  const InventoryAddPage({super.key});
+  const InventoryAddPage({super.key, required this.category});
+
+  final String category;
 
   @override
   State<InventoryAddPage> createState() => _InventoryAddPageState();
@@ -48,6 +50,7 @@ class _InventoryAddPageState extends State<InventoryAddPage> {
               price: int.tryParse(controller2.text) ?? 0,
               salePrice: int.tryParse(controller3.text) ?? 0,
               image: controller4.text,
+              category: widget.category,
             ),
           ),
         );
