@@ -152,7 +152,9 @@ class _StatisticsCardState extends State<StatisticsCard> {
                 initialAngleInDegree: 0,
                 chartType: ChartType.ring,
                 ringStrokeWidth: 9,
-                centerText: '\$${totalRevenue - getTotalAmount()}',
+                centerText: totalRevenue != 0
+                    ? '\$${totalRevenue - getTotalAmount()}'
+                    : '\$$totalRevenue',
                 centerTextStyle: const TextStyle(
                   color: AppColors.black,
                   fontSize: 24,

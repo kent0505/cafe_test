@@ -39,6 +39,6 @@ List<Color> pieChartColors = [
   AppColors.pink2, // sugar
   AppColors.green, // coffee cups
   const Color(0xffA2B3FF), // coffee
+  const Color(0xff7B44DC), // dessert
   const Color(0xffFB41FF), // syrup for coffee
-  Color(0xff7B44DC), // dessert
 ];
