@@ -25,3 +25,12 @@ class Fonts {
   static const String bold2 = 'MontserratB';
   static const String extra2 = 'MontserratBB';
 }
+
+Color getCategoryColor(String category) {
+  if (category == 'Sugar') return AppColors.pink2;
+  if (category == 'Coffee Cups') return AppColors.green;
+  if (category == 'Desserts') return AppColors.purple2;
+  if (category == 'Coffee') return const Color(0xffA2B3FF);
+  if (category == 'Syrup for Coffee') return const Color(0xffFB41FF);
+  return AppColors.pink2;
+}

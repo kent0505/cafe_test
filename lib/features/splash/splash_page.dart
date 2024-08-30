@@ -9,6 +9,7 @@ import '../../core/config/app_colors.dart';
 import '../../core/widgets/texts/text_r.dart';
 import '../cafe/bloc/cafe_bloc.dart';
 import '../inventory/bloc/inventory_bloc.dart';
+import '../revenue/bloc/revenue_bloc.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -23,6 +24,7 @@ class _SplashPageState extends State<SplashPage> {
   void load() async {
     context.read<CafeBloc>().add(GetCafesEvent());
     context.read<InventoryBloc>().add(GetInventoriesEvent());
+    context.read<RevenueBloc>().add(GetRevenuesEvent());
 
     await getData().then((value) {
       setState(() {

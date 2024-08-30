@@ -14,4 +14,9 @@ final theme = ThemeData(
   colorScheme: ColorScheme.fromSwatch(
     accentColor: AppColors.pink1, // overscroll indicator color
   ),
+  dialogTheme: const DialogTheme(
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(Radius.circular(24)),
+    ),
+  ),
 );

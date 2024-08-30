@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../core/config/app_colors.dart';
 import '../../../core/widgets/texts/text_b.dart';
 
-class RevenueCard extends StatelessWidget {
-  const RevenueCard({super.key});
+class HomeRevenueCard extends StatelessWidget {
+  const HomeRevenueCard({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,9 @@ class RevenueCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(24),
         ),
         child: CupertinoButton(
-          onPressed: () {},
+          onPressed: () {
+            context.push('/revenue');
+          },
           padding: EdgeInsets.zero,
           child: Stack(
             children: [

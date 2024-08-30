@@ -5,10 +5,7 @@ import '../../../core/config/app_colors.dart';
 import '../../../core/widgets/texts/text_r.dart';
 
 class CountrySelect extends StatefulWidget {
-  const CountrySelect({
-    super.key,
-    required this.onSelect,
-  });
+  const CountrySelect({super.key, required this.onSelect});
 
   final void Function(String) onSelect;
 
