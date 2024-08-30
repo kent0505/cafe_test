@@ -151,3 +151,13 @@ Future<void> updateNews() async {
   box.put('newsList', newsList);
   newsList = await box.get('newsList');
 }
+
+int getTotalAmount() {
+  int total = 0;
+  for (Revenue revenue in revenuesList) {
+    if (!revenue.revenue) {
+      total += revenue.price;
+    }
+  }
+  return total * 2;
+}

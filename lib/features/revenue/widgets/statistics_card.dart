@@ -8,6 +8,7 @@ import 'package:pie_chart/pie_chart.dart';
 
 import '../../../core/config/app_colors.dart';
 import '../../../core/models/chart_data.dart';
+import '../../../core/utils.dart';
 import '../../../core/widgets/texts/text_e.dart';
 
 class StatisticsCard extends StatefulWidget {
@@ -151,7 +152,7 @@ class _StatisticsCardState extends State<StatisticsCard> {
                 initialAngleInDegree: 0,
                 chartType: ChartType.ring,
                 ringStrokeWidth: 9,
-                centerText: '\$$totalRevenue',
+                centerText: '\$${totalRevenue - getTotalAmount()}',
                 centerTextStyle: const TextStyle(
                   color: AppColors.black,
                   fontSize: 24,
