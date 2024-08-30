@@ -1,6 +1,9 @@
+import 'package:cafe_test/features/revenue/bloc/revenue_bloc.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:pie_chart/pie_chart.dart';
 
 import '../../../core/config/app_colors.dart';
@@ -17,19 +20,15 @@ class StatisticsCard extends StatefulWidget {
 }
 
 class _StatisticsCardState extends State<StatisticsCard> {
-  Map<String, double> dataMap = {};
+  // Map<String, double> dataMap = {};
 
   @override
   void initState() {
     super.initState();
-    dataMap = {
-      "Sugar": widget.chartData.sugar,
-      "Coffee Cups": widget.chartData.cups,
-      "Coffee": widget.chartData.coffee,
-      "Dessert": widget.chartData.dessert,
-      "Syrup for Coffee": widget.chartData.syrup
-    };
   }
+
+  int byFourTypeFilter = 0;
+  ValueNotifier<DateTime> filterByMonth = ValueNotifier(DateTime.now());
 
   @override
   Widget build(BuildContext context) {
@@ -44,64 +43,131 @@ class _StatisticsCardState extends State<StatisticsCard> {
       ),
       child: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              _Period(
-                title: 'Day',
-                active: true,
-                onPressed: () {},
-              ),
-              _Period(
-                title: 'Week',
-                active: false,
-                onPressed: () {},
-              ),
-              _Period(
-                title: 'Month',
-                active: false,
-                onPressed: () {},
-              ),
-              _Period(
-                title: 'Year',
-                active: false,
-                onPressed: () {},
-              ),
-            ],
+          BlocBuilder<RevenueBloc, RevenueState>(
+            builder: (context, state) {
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _Period(
+                    title: 'Day',
+                    active: byFourTypeFilter == 0,
+                    onPressed: () {
+                      byFourTypeFilter = 0;
+                      context
+                          .read<RevenueBloc>()
+                          .add(GetFilterEvent(byFourType: 'Day'));
+                      filterByMonth.value = DateTime.now();
+                    },
+                  ),
+                  _Period(
+                    title: 'Week',
+                    active: byFourTypeFilter == 1,
+                    onPressed: () {
+                      byFourTypeFilter = 1;
+
+                      context
+                          .read<RevenueBloc>()
+                          .add(GetFilterEvent(byFourType: 'Week'));
+                      filterByMonth.value = DateTime.now();
+                    },
+                  ),
+                  _Period(
+                    title: 'Month',
+                    active: byFourTypeFilter == 2,
+                    onPressed: () {
+                      byFourTypeFilter = 2;
+
+                      context
+                          .read<RevenueBloc>()
+                          .add(GetFilterEvent(byFourType: 'Month'));
+                      filterByMonth.value = DateTime.now();
+                    },
+                  ),
+                  _Period(
+                    title: 'Year',
+                    active: byFourTypeFilter == 3,
+                    onPressed: () {
+                      byFourTypeFilter = 3;
+                      context
+                          .read<RevenueBloc>()
+                          .add(GetFilterEvent(byFourType: 'Year'));
+                      filterByMonth.value = DateTime.now();
+                    },
+                  ),
+                ],
+              );
+            },
           ),
-          const SizedBox(height: 24),
+          // const SizedBox(height: 24),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SvgPicture.asset('assets/arrow1.svg'),
-              const TextE2('August 2024', fontSize: 14),
-              SvgPicture.asset('assets/arrow2.svg'),
+              CupertinoButton(
+                  padding: EdgeInsets.zero,
+                  onPressed: () {
+                    filterByMonth.value = DateTime(filterByMonth.value.year,
+                        filterByMonth.value.month - 1);
+                    context
+                        .read<RevenueBloc>()
+                        .add(FilterByMonthEvent(dateTime: filterByMonth.value));
+                  },
+                  child: SvgPicture.asset('assets/arrow1.svg')),
+              ValueListenableBuilder(
+                valueListenable: filterByMonth,
+                builder: (context, value, child) {
+                  return TextE2(
+                      DateFormat("MMMM yyyy").format(filterByMonth.value),
+                      fontSize: 14);
+                },
+              ),
+              CupertinoButton(
+                  padding: EdgeInsets.zero,
+                  onPressed: () {
+                    filterByMonth.value = DateTime(filterByMonth.value.year,
+                        filterByMonth.value.month + 1);
+                    context
+                        .read<RevenueBloc>()
+                        .add(FilterByMonthEvent(dateTime: filterByMonth.value));
+                  },
+                  child: SvgPicture.asset('assets/arrow2.svg')),
             ],
           ),
           const SizedBox(height: 24),
-          PieChart(
-            dataMap: dataMap,
-            animationDuration: const Duration(milliseconds: 0),
-            chartRadius: MediaQuery.of(context).size.width / 3.2,
-            colorList: pieChartColors,
-            initialAngleInDegree: 0,
-            chartType: ChartType.ring,
-            ringStrokeWidth: 9,
-            centerText: '\$7588',
-            centerTextStyle: const TextStyle(
-              color: AppColors.black,
-              fontSize: 24,
-              fontWeight: FontWeight.w800,
-              fontFamily: 'InterE',
-            ),
-            legendOptions: const LegendOptions(showLegends: false),
-            chartValuesOptions: const ChartValuesOptions(
-              showChartValueBackground: false,
-              showChartValues: false,
-              showChartValuesInPercentage: false,
-              showChartValuesOutside: false,
-              decimalPlaces: 0,
-            ),
+          BlocBuilder<RevenueBloc, RevenueState>(
+            builder: (context, state) {
+              int totalRevenue = 0;
+              Map<String, double> dataMap = {};
+
+              if (state is RevenueLoadedState) {
+                dataMap = state.static;
+                totalRevenue = state.totalRevenue!;
+              }
+              print(dataMap);
+              return PieChart(
+                dataMap: dataMap,
+                animationDuration: const Duration(milliseconds: 0),
+                chartRadius: MediaQuery.of(context).size.width / 3.2,
+                colorList: pieChartColors,
+                initialAngleInDegree: 0,
+                chartType: ChartType.ring,
+                ringStrokeWidth: 9,
+                centerText: '\$${totalRevenue}',
+                centerTextStyle: const TextStyle(
+                  color: AppColors.black,
+                  fontSize: 24,
+                  fontWeight: FontWeight.w800,
+                  fontFamily: 'InterE',
+                ),
+                legendOptions: const LegendOptions(showLegends: false),
+                chartValuesOptions: const ChartValuesOptions(
+                  showChartValueBackground: false,
+                  showChartValues: false,
+                  showChartValuesInPercentage: false,
+                  showChartValuesOutside: false,
+                  decimalPlaces: 0,
+                ),
+              );
+            },
           ),
           const SizedBox(height: 10),
           Container(

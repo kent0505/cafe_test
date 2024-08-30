@@ -44,6 +44,12 @@ class _RevenuePageState extends State<RevenuePage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    context.read<RevenueBloc>().add(GetRevenuesEvent());
+
+  }
+  @override
   Widget build(BuildContext context) {
     return CustomScaffold(
       body: Column(
@@ -76,7 +82,7 @@ class _RevenuePageState extends State<RevenuePage> {
                     const SizedBox(height: 14),
                     StatisticsCard(
                       chartData: ChartData(
-                        sugar: 2,
+                        sugar: 2.5,
                         cups: 2,
                         coffee: 2,
                         dessert: 2,
