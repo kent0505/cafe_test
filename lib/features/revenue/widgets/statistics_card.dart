@@ -140,7 +140,7 @@ class _StatisticsCardState extends State<StatisticsCard> {
 
               if (state is RevenueLoadedState) {
                 dataMap = state.static;
-                totalRevenue = state.totalRevenue!;
+                totalRevenue = state.totalRevenue;
               }
               print(dataMap);
               return PieChart(
@@ -151,7 +151,7 @@ class _StatisticsCardState extends State<StatisticsCard> {
                 initialAngleInDegree: 0,
                 chartType: ChartType.ring,
                 ringStrokeWidth: 9,
-                centerText: '\$${totalRevenue}',
+                centerText: '\$$totalRevenue',
                 centerTextStyle: const TextStyle(
                   color: AppColors.black,
                   fontSize: 24,
